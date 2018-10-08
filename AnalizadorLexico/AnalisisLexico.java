@@ -28,6 +28,18 @@ public class AnalisisLexico {
 		     */
 		    while((input = br.readLine()) != null) {
 		    	ArrayList<Token> tokens = lexema(input);
+		    	for(int i = 0; i < input.length(); i++) {
+		    		int j= 0;
+		    		if(input.charAt(i) !=  ' ') {//no es un espacio en blanco, se añade
+		    			temp[j] = input.charAt(i);
+		    		}
+		    		else {//es un espacio en blanco, se analiza y se hace el token
+		    			tokenizador(temp);
+		    			
+		    		}
+		    		
+		    		
+		    	}
 				for (Token token : tokens) {
 					System.out.println("(" + token.getTipo() + ": " + token.getValor() + ")");
 				}
@@ -39,6 +51,13 @@ public class AnalisisLexico {
 		}
 		
 		
+	}
+	
+	private static String tokenizador(char[]in) {
+		String token  = "token";
+		
+		
+		return token;/*La salida es algo del estilo "<cosa, otraCosa>"*/
 	}
 
 	private static ArrayList<Token> lexema(String input) {
