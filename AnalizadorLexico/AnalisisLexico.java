@@ -23,7 +23,8 @@ public class AnalisisLexico {
 		     *entonces en el bucle while leeria el fichero, meteria una linea entera en un array
 		     *recorreriamos ese array caracter a caracter metiendolo en un array de paso
 		     *en el caso de ser un blanco se llamaria a la funcion de generar token (hay que hacerla aunque se pareceria a lexema(String input))
-		     *y así deberia recorrer todo el fichero mhhhhh creo que puede funcionar me pongo a ello no se lo que dejare hecho, hablamos por telegram
+		     *y asÃ­ deberia recorrer todo el fichero mhhhhh creo que puede funcionar me pongo a ello no se lo que dejare hecho, hablamos por telegram
+		     *PD: mirad StringTokenizer
 		     */
 		    while((input = br.readLine()) != null) {
 		    	ArrayList<Token> tokens = lexema(input);
@@ -61,7 +62,7 @@ public class AnalisisLexico {
 			}
 
 			if (!matched) {
-				throw new RuntimeException("Se encontró un token invalido.");
+				throw new RuntimeException("Se encontrÃ³ un token invalido.");
 			}
 		}
 
