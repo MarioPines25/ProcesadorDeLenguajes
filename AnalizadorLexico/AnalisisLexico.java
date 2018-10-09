@@ -36,7 +36,7 @@ public class AnalisisLexico {
 		     */
 		    while((input = br.readLine()) != null) {
 		    	ArrayList<Token> tokens = lexema(input);
-			String palabra;
+			String palabra=new String();
 		    	for(int i = 0; i < input.length(); i++) {
 		    		//int j= 0;
 		    		if(input.charAt(i) !=  ' ') {//no es un espacio en blanco, se añade
@@ -64,11 +64,11 @@ public class AnalisisLexico {
 		
 	}
 	
-	private static String tokenizador(char[]in) {
-		String token  = "token";
+	private static String tokenizador(String in) {
+		String token  = in;
 		
 		
-		return token;/*La salida es algo del estilo "<cosa, otraCosa>"*/
+		return token;/*La salida es algo del estilo "<tipoToken, valor>"*/
 	}
 
 	private static ArrayList<Token> lexema(String input) {
