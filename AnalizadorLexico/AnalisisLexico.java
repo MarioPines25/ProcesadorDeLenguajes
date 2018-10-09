@@ -19,10 +19,21 @@ import java.util.regex.Pattern;
 public class AnalisisLexico {
 
 
-
+/*Método de ejecución> java AnalisisLexico FicheroEntrada FicheroSalida*/
 	public static void main(String[] args) {
-		File fichero = new File("RUTA");
-		String input;
+		
+		File ficheroEntrada = null, ficheroSalida = null;
+		
+		if (args.length == 0 || args.length > 2) {
+            System.out.println("no arguments valid.");
+        }
+        else {
+            for (int i = 0; i< args.length; i++) {
+                ficheroEntrada = new File (args[0]);
+                ficheroSalida = new File (args[1]);
+                
+            }
+        }
 		try {
 			FileReader fr = new FileReader(fichero);
 		    BufferedReader br = new BufferedReader(fr);
