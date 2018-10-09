@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/* 09/10/2018
+	Mario: segun lo que dijo alvaro, he considerado que el array de paso no es necesario. Mi solucion es 
+	ir acumulando los caracteres que va leyendo en un String al que se va concatenando cada char hasta que se
+	encuentre un blanco. Cuando se encuentre el blanco se genera el token ya que ha terminado de leer una entrada
+	del fichero. 
+		No se que os parece, dejo comentado lo que ya estaba y añado mis lineas */
+
 public class AnalisisLexico {
 
 
@@ -28,13 +36,16 @@ public class AnalisisLexico {
 		     */
 		    while((input = br.readLine()) != null) {
 		    	ArrayList<Token> tokens = lexema(input);
+			String palabra;
 		    	for(int i = 0; i < input.length(); i++) {
-		    		int j= 0;
+		    		//int j= 0;
 		    		if(input.charAt(i) !=  ' ') {//no es un espacio en blanco, se añade
-		    			temp[j] = input.charAt(i);
+		    			//temp[j] = input.charAt(i);
+					palabra+=input.charAt(i);//vamos formando el token hasta encontrar blanco
 		    		}
 		    		else {//es un espacio en blanco, se analiza y se hace el token
-		    			tokenizador(temp);
+		    			//tokenizador(temp);
+					GenToken(palara);//Falta por implementar aun
 		    			
 		    		}
 		    		
