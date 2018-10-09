@@ -64,7 +64,7 @@ public class AnalisisLexico {
 		
 	}
 	
-	private static String tokenizador(String in) {
+	private static String GenToken(String in) {
 		String token  = in;
 		
 		
