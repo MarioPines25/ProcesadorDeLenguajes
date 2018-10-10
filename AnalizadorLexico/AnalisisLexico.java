@@ -1,87 +1,26 @@
 package AnalizadorLexico;
-import static AnalizadorLexico.Token.Tipos;
 
+import static AnalizadorLexico.Token.Tipos;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/* 09/10/2018
-	Mario: segun lo que dijo alvaro, he considerado que el array de paso no es necesario. Mi solucion es 
-	ir acumulando los caracteres que va leyendo en un String al que se va concatenando cada char hasta que se
-	encuentre un blanco. Cuando se encuentre el blanco se genera el token ya que ha terminado de leer una entrada
-	del fichero. 
-		No se que os parece, dejo comentado lo que ya estaba y añado mis lineas */
-
-public class AnalisisLexico {
 
 
-/*Método de ejecución> java AnalisisLexico FicheroEntrada FicheroSalida*/
-	public static void main(String[] args) {
-		
-		File ficheroEntrada = null, ficheroSalida = null;
-		
-		if (args.length == 0 || args.length > 2) {
-            System.out.println("no arguments valid.");
-        }
-		else {
+public class Automata {
+	String bufferIn= new String();
+	String ruta;/*Hay que dar una ruta en el equipo rollo: /User/piqui...*/
+	private static String GenToken(char c) {
+		String token=new String();
 
-		ficheroEntrada = new File (args[0]);
-		ficheroSalida = new File (args[1]);
-
-		}
-        }
-		try {
-			FileReader fr = new FileReader(fichero);
-		    BufferedReader br = new BufferedReader(fr);
-		    /*esto va linea a linea, no estoy seguro que funcione para los tokens, la cosa es hacerlo letra a letra (char)
-		     *mi idea seria pasar linea a linea a un array e ir letra a letra
-		     *entonces en el bucle while leeria el fichero, meteria una linea entera en un array
-		     *recorreriamos ese array caracter a caracter metiendolo en un array de paso
-		     *en el caso de ser un blanco se llamaria a la funcion de generar token (hay que hacerla aunque se pareceria a lexema(String input))
-		     *y así deberia recorrer todo el fichero mhhhhh creo que puede funcionar me pongo a ello no se lo que dejare hecho, hablamos por telegram
-		     *PD: mirad StringTokenizer
-		     */
-		    while((input = br.readLine()) != null) {
-		    	ArrayList<Token> tokens = lexema(input);
-			String palabra=new String();
-		    	for(int i = 0; i < input.length(); i++) {
-		    		//int j= 0;
-		    		if(input.charAt(i) !=  ' ') {//no es un espacio en blanco, se añade
-		    			//temp[j] = input.charAt(i);
-					palabra+=input.charAt(i);//vamos formando el token hasta encontrar blanco
-		    		}
-		    		else {//es un espacio en blanco, se analiza y se hace el token
-		    			//tokenizador(temp);
-					GenToken(palara);//Falta por implementar aun
-		    			
-		    		}
-		    		
-		    		
-		    	}
-				for (Token token : tokens) {
-					System.out.println("(" + token.getTipo() + ": " + token.getValor() + ")");
-				}
-		    }
-		    
-		    fr.close();
-		}catch(Exception e){
-			System.out.println("Excepcion leyendo fichero "+ fichero + ": " + e);
-		}
-		
-		
-	}
-	
-	private static String GenToken(String in) {
-		String token  = in;
-		
-		
 		return token;/*La salida es algo del estilo "<tipoToken, valor>"*/
 	}
-
 	private static ArrayList<Token> lexema(String input) {
 		final ArrayList<Token> tokens = new ArrayList<Token>();
 		final StringTokenizer st = new StringTokenizer(input);
@@ -108,5 +47,93 @@ public class AnalisisLexico {
 		}
 
 		return tokens;
+	}
+
+	private void cogerLinea(){
+		try {
+			FileReader fr = new FileReader(ruta);
+			BufferedReader br = new BufferedReader(fr);//La variable fr debe recorrer el fichero de entrada
+
+			while((bufferIn=br.readLine())!=null){
+				q0(bufferIn);
+			}
+
+		} catch (IOException e) {
+			System.out.println("No se ha podido leer la linea +e");
+		}
+	}
+
+	public void q0(String in){
+		for(int i=0;i<in.length();i++){
+			char c = in.charAt(i);
+			if(esSeparador(c)){
+				GenToken(c); //Generamos separador;
+			}
+			if(c=='/'){
+				q6(c);//evaluamos los comentarios.
+			}
+			if(c=='*'){
+				q1(c);
+			}
+			if(Character.isLetter(c)){
+				q2(c);
+			}
+			if(Character.isDigit(c)){
+				q3(c);
+			}
+			if(c=='"'){
+				q5(c);
+			}
+			if(esOperador(c)){//Evaluar los operadores 
+				GenToken(c);
+			}
+		}
+	}
+	
+	public void q1(char in){
+		if(){
+			
+		}
+	}
+	public void q2(char in){}
+	public void q3(char in){}
+	public void q4(char in){}
+	public void q5(char in){}
+	public void q6(char in){}
+	public void q7(char in){}
+	public void q8(char in){}//evaluar los comentarios.
+	public void q9(char in){}
+	public void q10(char in){}
+	public void q11(char in){}
+	public void q12(char in){}
+	public void q13(char in){}
+	public void q14(char in){}
+	public void q15(char in){}
+	
+	/* Metodo que comprueba si el char de entrada es un separador */
+	private boolean esSeparador(char sep) {
+		switch (sep){
+		case '(':return true;
+		case ')':return true;
+		case '[':return true;
+		case ']':return true;
+		case '{':return true;
+		case '}':return true;
+		case ';':return true;
+		default: return false;
+		}
+	}
+	
+	/* Metodo que comprueba si el char de entrada es un operador */
+	private boolean esOperador(char sep) {
+		switch (sep){
+		case '+':return true;
+		case '-':return true;
+		case '<':return true;
+		case '>':return true;
+		case '=':return true;
+		case '!':return true;
+		default: return false;
+		}
 	}
 }
