@@ -58,50 +58,62 @@ public class AutomataFinitoDeterminista {
 				int valor = letra; //Tomamos el valor de la letra para poder evaluarla
 				switch(estado){
 				case 0:
-					
+
 					if(letra=='*'){
 						estado = 1;
 						lexema = ""+letra;
 					}//Fin if 
-					
+
 					/* Comprobamos si es un digito */
 					else if(esNumeroAscii(letra)){
 						estado=2;
 						lexema=""+letra;
 					}//Fin elseif
-					
+
 					/*Si tenemos letra mayuscula o minuscula:
 					 * 	comprobamos si esta dentro del rango ASCII*/
 					else if(esLetraAscii(letra)){
 						estado = 3;
 						lexema = ""+letra;
 					}//Fin elseif
-					
+
 					/*Comprobamos si es separador */
 					else if(esSeparador(letra)){
 						lexema =""+letra;
 						genToken(lexema);//Generamos el token
 					}// Fin elseif
-					
+
 					/*Comprobamos si es operador */
 					else if(esOperador(letra)){
 						lexema=""+letra;
 						genToken(lexema);//Generamos el token 
 					}// Fin elseif
+
+					/* comprobamos si es nuestro delimitador */
+					else if(esBlanco(letra)){
+						estado=0;
+					}
+
+					/* Si no tenemos una entrada valida, tenemos un error */
+					else{
+						System.out.println("Error lexico "+letra);
+						estado=0;
+						arrErrores.add(""+letra);
+					}
 				}//Fin swtich
 			}//Fin for
 		}//Fin while
 	}//Fin analizar()
-	
+
 	/* Metodo que genera el token segun el lexema(in) de entrada */
 	private String genToken(String in) {
 		return in; // Salida <TipoToken, valor>
 	}
-	
+
 	/***************************
 	 * Metodos auxiliares ******
 	 * *************************/
-	
+
 	/* Metodo que comprueba si el char de entrada es un separador */
 	private boolean esSeparador(char sep) {
 		switch (sep){
@@ -128,18 +140,23 @@ public class AutomataFinitoDeterminista {
 		default: return false;
 		}
 	}
-	
+
 	/* OJO: (cond)?r1:r2 devuelve r1 si cond es cierto
 	 * y r2 si es falso */
-	
+
 	/* Metodo que devuelve si es un numero ASCII */
 	private boolean esNumeroAscii(char l){
 		return (l>=48 && l<=57)?true:false;
 	}
-	
+
 	/* Metodo que devuelve si es letra ASCII */
 	private boolean esLetraAscii(char l){
 		return ((l>=65&&l<=90)||
 				(l>=97&&l<=122))?true:false;
+	}
+
+	/* Metodo que comprueba si hay blanco */
+	private boolean esBlanco(char l){
+		return (l==' ')?true:false;
 	}
 }
